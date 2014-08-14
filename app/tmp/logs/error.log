@@ -1,0 +1,93 @@
+2014-07-29 11:26:25 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /livingland/css/bootstrap.css?q=12345678
+Stack Trace:
+#0 /Applications/MAMP/htdocs/livingland/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-07-29 11:26:49 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /livingland/css/bootstrap.css?q=12345678
+Stack Trace:
+#0 /Applications/MAMP/htdocs/livingland/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-07-29 11:30:53 Error: [MissingControllerException] Controller class JsController could not be found.
+Exception Attributes: array (
+  'class' => 'JsController',
+  'plugin' => NULL,
+)
+Request URL: /livingland/js/bootstrap.js?q=12345678
+Stack Trace:
+#0 /Applications/MAMP/htdocs/livingland/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-07-30 12:44:21 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /livingland/css/images/background/00.jpg
+Stack Trace:
+#0 /Applications/MAMP/htdocs/livingland/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2014-08-13 16:55:02 Error: [CakeSessionException] Could not load ComboSession to handle the session.
+Request URL: /
+Stack Trace:
+#0 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(518): CakeSession::_getHandler('ComboSession')
+#1 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(543): CakeSession::_configureSession()
+#2 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(554): CakeSession::_cookieName()
+#3 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(231): CakeSession::_hasSession()
+#4 /Applications/MAMP/htdocs/gsk/lib/Cake/Controller/Component/SessionComponent.php(95): CakeSession::check('UserAuth.loginN...')
+#5 /Applications/MAMP/htdocs/gsk/app/Plugin/Usermgmt/Controller/Component/UserAuthComponent.php(62): SessionComponent->check('UserAuth.loginN...')
+#6 /Applications/MAMP/htdocs/gsk/app/Controller/AppController.php(53): UserAuthComponent->beforeFilter(Object(PagesController))
+#7 /Applications/MAMP/htdocs/gsk/app/Controller/AppController.php(50): AppController->userAuth()
+#8 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#9 /Applications/MAMP/htdocs/gsk/lib/Cake/Event/CakeEventManager.php(242): call_user_func(Array, Object(CakeEvent))
+#10 /Applications/MAMP/htdocs/gsk/lib/Cake/Controller/Controller.php(674): CakeEventManager->dispatch(Object(CakeEvent))
+#11 /Applications/MAMP/htdocs/gsk/lib/Cake/Routing/Dispatcher.php(187): Controller->startupProcess()
+#12 /Applications/MAMP/htdocs/gsk/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#13 /Applications/MAMP/htdocs/gsk/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 /Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/google/appengine/tools/devappserver2/php/setup.php(106): require('/Applications/M...')
+#15 {main}
+2014-08-13 16:56:39 Error: [CakeSessionException] Could not load ComboSession to handle the session.
+Request URL: /
+Stack Trace:
+#0 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(518): CakeSession::_getHandler('ComboSession')
+#1 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(543): CakeSession::_configureSession()
+#2 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(554): CakeSession::_cookieName()
+#3 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(231): CakeSession::_hasSession()
+#4 /Applications/MAMP/htdocs/gsk/lib/Cake/Controller/Component/SessionComponent.php(95): CakeSession::check('UserAuth.loginN...')
+#5 /Applications/MAMP/htdocs/gsk/app/Plugin/Usermgmt/Controller/Component/UserAuthComponent.php(62): SessionComponent->check('UserAuth.loginN...')
+#6 /Applications/MAMP/htdocs/gsk/app/Controller/AppController.php(53): UserAuthComponent->beforeFilter(Object(PagesController))
+#7 /Applications/MAMP/htdocs/gsk/app/Controller/AppController.php(50): AppController->userAuth()
+#8 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#9 /Applications/MAMP/htdocs/gsk/lib/Cake/Event/CakeEventManager.php(242): call_user_func(Array, Object(CakeEvent))
+#10 /Applications/MAMP/htdocs/gsk/lib/Cake/Controller/Controller.php(674): CakeEventManager->dispatch(Object(CakeEvent))
+#11 /Applications/MAMP/htdocs/gsk/lib/Cake/Routing/Dispatcher.php(187): Controller->startupProcess()
+#12 /Applications/MAMP/htdocs/gsk/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#13 /Applications/MAMP/htdocs/gsk/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 /Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/google/appengine/tools/devappserver2/php/setup.php(106): require('/Applications/M...')
+#15 {main}
+2014-08-13 16:56:41 Error: [CakeSessionException] Could not load ComboSession to handle the session.
+Request URL: /
+Stack Trace:
+#0 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(518): CakeSession::_getHandler('ComboSession')
+#1 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(543): CakeSession::_configureSession()
+#2 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(554): CakeSession::_cookieName()
+#3 /Applications/MAMP/htdocs/gsk/lib/Cake/Model/Datasource/CakeSession.php(231): CakeSession::_hasSession()
+#4 /Applications/MAMP/htdocs/gsk/lib/Cake/Controller/Component/SessionComponent.php(95): CakeSession::check('UserAuth.loginN...')
+#5 /Applications/MAMP/htdocs/gsk/app/Plugin/Usermgmt/Controller/Component/UserAuthComponent.php(62): SessionComponent->check('UserAuth.loginN...')
+#6 /Applications/MAMP/htdocs/gsk/app/Controller/AppController.php(53): UserAuthComponent->beforeFilter(Object(PagesController))
+#7 /Applications/MAMP/htdocs/gsk/app/Controller/AppController.php(50): AppController->userAuth()
+#8 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#9 /Applications/MAMP/htdocs/gsk/lib/Cake/Event/CakeEventManager.php(242): call_user_func(Array, Object(CakeEvent))
+#10 /Applications/MAMP/htdocs/gsk/lib/Cake/Controller/Controller.php(674): CakeEventManager->dispatch(Object(CakeEvent))
+#11 /Applications/MAMP/htdocs/gsk/lib/Cake/Routing/Dispatcher.php(187): Controller->startupProcess()
+#12 /Applications/MAMP/htdocs/gsk/lib/Cake/Routing/Dispatcher.php(165): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
+#13 /Applications/MAMP/htdocs/gsk/app/webroot/index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 /Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/google/appengine/tools/devappserver2/php/setup.php(106): require('/Applications/M...')
+#15 {main}

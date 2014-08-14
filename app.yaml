@@ -1,0 +1,43 @@
+application: x325-dev
+version: gsk
+runtime: php
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /css
+  static_dir: app/webroot/css
+ 
+- url: /js
+  static_dir: app/webroot/js
+ 
+- url: /plugins
+  static_dir: app/webroot/plugins
+ 
+- url: /img
+  static_dir: app/webroot/img
+ 
+- url: /fonts
+  static_dir: app/webroot/fonts
+ 
+- url: /files
+  static_dir: app/webroot/files
+ 
+- url: /usermgmt/css
+  static_dir: app/Plugin/Usermgmt/webroot/css
+ 
+- url: /usermgmt/js
+  static_dir: app/Plugin/Usermgmt/webroot/js
+ 
+- url: /usermgmt/img
+  static_dir: app/Plugin/Usermgmt/webroot/img
+ 
+- url: /usermgmt/files
+  static_dir: app/Plugin/Usermgmt/webroot/files
+
+- url: /favicon.ico
+  static_files: app/webroot/favicon.ico
+  upload: app/webroot/favicon.ico
+ 
+- url: /.*
+  script: app/webroot/index.php
