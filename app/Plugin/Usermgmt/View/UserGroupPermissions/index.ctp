@@ -31,7 +31,7 @@ THE PRODUCT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIE
 	}
 </style>
 <?php echo $this->Html->script(array('/usermgmt/js/umupdate.js?q='.QRDN)); ?>
-<div class="um-panel">
+<div class="page-content">
 	<div class="um-panel-header">
 		<span class="um-panel-title">
 			<?php echo __('Parent Group Permissions') ?>

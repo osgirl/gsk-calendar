@@ -29,7 +29,7 @@ THE PRODUCT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIE
 		margin-bottom:10px;
 	}
 </style>
-<div class="um-panel">
+<div class="page-content">
 	<div class="um-panel-header">
 		<span class="um-panel-title">
 			<?php echo __('Add Multiple Users') ?>

@@ -31,7 +31,7 @@ $(document).ready(function(e) {
 	}
 });
 </script>
-<div class="um-panel">
+<div class="page-content">
 	<div class="um-panel-header">
 		<span class="um-panel-title">
 			<?php echo __('Edit User') ?>

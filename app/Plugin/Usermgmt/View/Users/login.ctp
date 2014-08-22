@@ -1,88 +1,445 @@
-<?php
-/*
-Cakephp 2.x User Management Premium Version (a product of Ektanjali Softwares Pvt Ltd)
-Website- http://ektanjali.com
-Plugin Demo- http://umpremium.ektanjali.com
-Author- Chetan Varshney (The Director of Ektanjali Softwares Pvt Ltd)
-Plugin Copyright No- 11498/2012-CO/L
-
-UMPremium is a copyrighted work of authorship. Chetan Varshney retains ownership of the product and any copies of it, regardless of the form in which the copies may exist. This license is not a sale of the original product or any copies.
-
-By installing and using UMPremium on your server, you agree to the following terms and conditions. Such agreement is either on your own behalf or on behalf of any corporate entity which employs you or which you represent ('Corporate Licensee'). In this Agreement, 'you' includes both the reader and any Corporate Licensee and Chetan Varshney.
-
-The Product is licensed only to you. You may not rent, lease, sublicense, sell, assign, pledge, transfer or otherwise dispose of the Product in any form, on
-a temporary or permanent basis, without the prior written consent of Chetan Varshney.
-
-The Product source code may be altered (at your risk)
-
-All Product copyright notices within the scripts must remain unchanged (and visible).
-
-If any of the terms of this Agreement are violated, Chetan Varshney reserves the right to action against you.
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Product.
-
-THE PRODUCT IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE PRODUCT OR THE USE OR OTHER DEALINGS IN THE PRODUCT.
-*/
-?>
-<div class="row">
-	<div class="um-panel col-md-6 col-md-offset-3">
-		<div class="um-panel-header">
-			<span class="um-panel-title">
-				<?php
-					echo __('Sign In');
-					if(SITE_REGISTRATION) {
-						echo ' '.__('or');
-					}?>
-			</span>
-			<?php if(SITE_REGISTRATION) { ?>
-			<span class="um-panel-title">
-				<?php echo $this->Html->link(__('Sign Up', true), '/register');?>
-			</span>
-			<?php } ?>
-		</div>
-		<div class="um-panel-content">
-			<?php echo $this->element('Usermgmt.ajax_validation', array('formId' => 'loginForm', 'submitButtonId' => 'loginSubmitBtn')); ?>
-			<?php echo $this->Form->create('User', array('id'=>'loginForm', 'class'=>'form-horizontal')); ?>
-			<div class="um-form-row form-group">
-				<label class="col-sm-4 control-label required"><?php echo __('Email / Username');?></label>
-				<div class="col-sm-7">
-					<?php echo $this->Form->input('email', array('type'=>'text', 'label'=>false, 'div'=>false, 'placeholder'=>__('Email / Username'), 'class'=>'form-control')); ?>
-				</div>
-			</div>
-			<div class="um-form-row form-group">
-				<label class="col-sm-4 control-label required"><?php echo __('Password');?></label>
-				<div class="col-sm-7">
-					<?php echo $this->Form->input('password', array('type'=>'password', 'label'=>false, 'div'=>false, 'placeholder'=>__('Password'), 'class'=>'form-control')); ?>
-				</div>
-			</div>
-			<?php if(USE_REMEMBER_ME) { ?>
-			<div class="um-form-row form-group">
-			<?php   if(!isset($this->request->data['User']['remember'])) {
-						$this->request->data['User']['remember']=true;
-					} ?>
-				<label class="col-sm-4 control-label"><?php echo __('Remember me');?></label>
-				<div class="col-sm-7">
-					<?php echo $this->Form->input('remember', array('type'=>'checkbox', 'label'=>false, 'div'=>false)); ?>
-				</div>
-			</div>
-			<?php } ?>
-			<?php if($this->UserAuth->canUseRecaptha('login')) { ?>
-			<div class="um-form-row form-group">
-				<?php   $this->Form->unlockField('recaptcha_challenge_field');
-						$this->Form->unlockField('recaptcha_response_field'); ?>
-				<label class="col-sm-4 control-label required"><?php echo __('Prove you\'re not a robot');?></label>
-				<div class="col-sm-7">
-					<?php echo $this->UserAuth->showCaptcha(isset($this->validationErrors['User']['captcha'][0]) ? $this->validationErrors['User']['captcha'][0] : ""); ?>
-				</div>
-			</div>
-			<?php } ?>
-			<div class="um-button-row">
-				<?php echo $this->Form->Submit('Sign In', array('div'=>false, 'class'=>'btn btn-primary', 'id'=>'loginSubmitBtn')); ?>
-				<?php echo $this->Html->link(__('Forgot Password?'), '/forgotPassword', array('class'=>'right btn btn-default')); ?>
-				<?php echo $this->Html->link(__('Email Verification'), '/emailVerification', array('class'=>'right btn btn-default')); ?>
-			</div>
-			<?php echo $this->Form->end(); ?>
-			<?php echo $this->element('Usermgmt.provider'); ?>
+<style>
+a {
+	color: #e6f6f8;
+}
+</style>
+<!-- BEGIN LOGIN FORM -->
+<?php echo $this->element('Usermgmt.ajax_validation', array('formId' => 'loginForm', 'submitButtonId' => 'loginSubmitBtn')); ?>
+<?php echo $this->Form->create('User', array('id'=>'loginForm', 'class'=>'login-form', 'inputDefaults' => array('div' => false, 'label' => false) )); ?>
+	<h3 class="form-title">Entra con tu Cuenta</h3>
+	<div class="alert alert-danger display-hide">
+		<button class="close" data-close="alert"></button>
+		<span>
+		Enter any username and password. </span>
+	</div>
+	<div class="form-group">
+		<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+		<label class="control-label visible-ie8 visible-ie9">Username</label>
+		<div class="input-icon">
+			<i class="fa fa-user"></i>
+			<?php echo $this->Form->input('email', array('type'=>'text', 'placeholder'=>__('Correo electronico'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
 		</div>
 	</div>
-</div>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Password</label>
+		<div class="input-icon">
+			<i class="fa fa-lock"></i>
+			<?php echo $this->Form->input('password', array('type'=>'password', 'placeholder'=>__('Contrasena'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+
+	<?php if(USE_REMEMBER_ME) { ?>
+	<div class="form-actions">
+	<?php   if(!isset($this->request->data['User']['remember'])) {
+				$this->request->data['User']['remember']=true;
+			} ?>
+		<label class="checkbox">
+		<?php echo $this->Form->input('remember', array('type'=>'checkbox')); ?> Recordarme </label>
+	
+	<?php } ?>
+
+	<?php if($this->UserAuth->canUseRecaptha('login')) { ?>
+	<div class="um-form-row form-group">
+		<?php   $this->Form->unlockField('recaptcha_challenge_field');
+				$this->Form->unlockField('recaptcha_response_field'); ?>
+		<label class="col-sm-4 control-label required"><?php echo __('Prove you\'re not a robot');?></label>
+		<div class="col-sm-7">
+			<?php echo $this->UserAuth->showCaptcha(isset($this->validationErrors['User']['captcha'][0]) ? $this->validationErrors['User']['captcha'][0] : ""); ?>
+		</div>
+	</div>
+	<?php } ?>
+
+		<button type="submit" id="loginSubmitBtn" class="btn blue pull-right">
+		Ingresar <i class="m-icon-swapright m-icon-white"></i>
+		</button>
+	</div>
+
+	
+	<div class="login-options">
+		<h4>O conéctate con</h4>
+
+		<?php //echo $this->element('Usermgmt.provider'); ?>
+
+		<ul class="social-icons">
+			<li>
+				<a class="facebook" data-original-title="facebook" href="#">
+				</a>
+			</li>
+			<li>
+				<a class="twitter" data-original-title="Twitter" href="#">
+				</a>
+			</li>
+			<li>
+				<a class="googleplus" data-original-title="Goole Plus" href="#">
+				</a>
+			</li>
+			<li>
+				<a class="linkedin" data-original-title="Linkedin" href="#">
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="forget-password">
+		<h4>¿ Olvidaste tu contraseña ?</h4>
+		<p>
+			 no hay problema, da clic <a href="javascript:;" id="forget-password">
+			aquí </a>
+			para restaurarlo.
+		</p>
+	</div>
+	<div class="create-account">
+		<p>
+			 ¿ Aún no tienes una cuenta ?&nbsp; <a href="javascript:;" id="register-btn">
+			Crea una Cuenta </a>
+		</p>
+	</div>
+<?php echo $this->Form->end(); ?>
+<!-- END LOGIN FORM -->
+<!-- BEGIN FORGOT PASSWORD FORM -->
+<?php echo $this->element('Usermgmt.ajax_validation', array('formId' => 'forgetForm', 'submitButtonId' => 'forgetSubmitBtn')); ?>
+<?php echo $this->Form->create('User', array('id'=>'forgetForm', 'url' => '/forgotPassword', 'class'=>'forget-form', 'inputDefaults' => array('div' => false, 'label' => false) )); ?>
+	<h3>¿Olvidaste tu contraseña?</h3>
+	<p>
+		 Ingresa tu correo electrónico para mandarte las instrucciones para recuperar tu contraseña.
+	</p>
+	<div class="form-group">
+		<div class="input-icon">
+			<i class="fa fa-envelope"></i>
+			<?php echo $this->Form->input('email', array('type'=>'text', 'placeholder'=>__('Usuario / Correo electronico'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+	<div class="form-actions">
+		<button type="button" id="back-btn" class="btn">
+		<i class="m-icon-swapleft"></i> Regresar </button>
+		<button type="submit" id="forgetSubmitBtn" class="btn blue pull-right">
+		Enviar <i class="m-icon-swapright m-icon-white"></i>
+		</button>
+	</div>
+</form>
+<!-- END FORGOT PASSWORD FORM -->
+<?php if(SITE_REGISTRATION) { ?>
+<!-- BEGIN REGISTRATION FORM -->
+<?php echo $this->element('Usermgmt.ajax_validation', array('formId' => 'registerForm', 'submitButtonId' => 'registerSubmitBtn')); ?>
+<?php echo $this->Form->create('User', array('id'=>'registerForm', 'url' => '/register', 'class'=>'register-form', 'inputDefaults' => array('div' => false, 'label' => false) )); ?>
+	<h3>Registro</h3>
+	<p>
+		 Ingresa tus datos personales:
+	</p>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Nombre Completo</label>
+		<div class="input-icon">
+			<i class="fa fa-font"></i>
+			<?php echo $this->Form->input('first_name', array('type'=>'text', 'placeholder'=>__('Nombre completo'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+		<label class="control-label visible-ie8 visible-ie9">Correo electrónico</label>
+		<div class="input-icon">
+			<i class="fa fa-envelope"></i>
+			<?php echo $this->Form->input('email', array('type'=>'text', 'placeholder'=>__('Correo electrónico'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Dirección</label>
+		<div class="input-icon">
+			<i class="fa fa-check"></i>
+			<?php echo $this->Form->input('address', array('type'=>'text', 'placeholder'=>__('Dirección'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Ciudad</label>
+		<div class="input-icon">
+			<i class="fa fa-location-arrow"></i>
+			<?php echo $this->Form->input('city', array('type'=>'text', 'placeholder'=>__('Ciudad'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">País</label>
+		<select name="country" id="select2_sample4" class="select2 form-control">
+			<option value=""></option>
+			<option value="AF">Afghanistan</option>
+			<option value="AL">Albania</option>
+			<option value="DZ">Algeria</option>
+			<option value="AS">American Samoa</option>
+			<option value="AD">Andorra</option>
+			<option value="AO">Angola</option>
+			<option value="AI">Anguilla</option>
+			<option value="AR">Argentina</option>
+			<option value="AM">Armenia</option>
+			<option value="AW">Aruba</option>
+			<option value="AU">Australia</option>
+			<option value="AT">Austria</option>
+			<option value="AZ">Azerbaijan</option>
+			<option value="BS">Bahamas</option>
+			<option value="BH">Bahrain</option>
+			<option value="BD">Bangladesh</option>
+			<option value="BB">Barbados</option>
+			<option value="BY">Belarus</option>
+			<option value="BE">Belgium</option>
+			<option value="BZ">Belize</option>
+			<option value="BJ">Benin</option>
+			<option value="BM">Bermuda</option>
+			<option value="BT">Bhutan</option>
+			<option value="BO">Bolivia</option>
+			<option value="BA">Bosnia and Herzegowina</option>
+			<option value="BW">Botswana</option>
+			<option value="BV">Bouvet Island</option>
+			<option value="BR">Brazil</option>
+			<option value="IO">British Indian Ocean Territory</option>
+			<option value="BN">Brunei Darussalam</option>
+			<option value="BG">Bulgaria</option>
+			<option value="BF">Burkina Faso</option>
+			<option value="BI">Burundi</option>
+			<option value="KH">Cambodia</option>
+			<option value="CM">Cameroon</option>
+			<option value="CA">Canada</option>
+			<option value="CV">Cape Verde</option>
+			<option value="KY">Cayman Islands</option>
+			<option value="CF">Central African Republic</option>
+			<option value="TD">Chad</option>
+			<option value="CL">Chile</option>
+			<option value="CN">China</option>
+			<option value="CX">Christmas Island</option>
+			<option value="CC">Cocos (Keeling) Islands</option>
+			<option value="CO">Colombia</option>
+			<option value="KM">Comoros</option>
+			<option value="CG">Congo</option>
+			<option value="CD">Congo, the Democratic Republic of the</option>
+			<option value="CK">Cook Islands</option>
+			<option value="CR">Costa Rica</option>
+			<option value="CI">Cote d'Ivoire</option>
+			<option value="HR">Croatia (Hrvatska)</option>
+			<option value="CU">Cuba</option>
+			<option value="CY">Cyprus</option>
+			<option value="CZ">Czech Republic</option>
+			<option value="DK">Denmark</option>
+			<option value="DJ">Djibouti</option>
+			<option value="DM">Dominica</option>
+			<option value="DO">Dominican Republic</option>
+			<option value="EC">Ecuador</option>
+			<option value="EG">Egypt</option>
+			<option value="SV">El Salvador</option>
+			<option value="GQ">Equatorial Guinea</option>
+			<option value="ER">Eritrea</option>
+			<option value="EE">Estonia</option>
+			<option value="ET">Ethiopia</option>
+			<option value="FK">Falkland Islands (Malvinas)</option>
+			<option value="FO">Faroe Islands</option>
+			<option value="FJ">Fiji</option>
+			<option value="FI">Finland</option>
+			<option value="FR">France</option>
+			<option value="GF">French Guiana</option>
+			<option value="PF">French Polynesia</option>
+			<option value="TF">French Southern Territories</option>
+			<option value="GA">Gabon</option>
+			<option value="GM">Gambia</option>
+			<option value="GE">Georgia</option>
+			<option value="DE">Germany</option>
+			<option value="GH">Ghana</option>
+			<option value="GI">Gibraltar</option>
+			<option value="GR">Greece</option>
+			<option value="GL">Greenland</option>
+			<option value="GD">Grenada</option>
+			<option value="GP">Guadeloupe</option>
+			<option value="GU">Guam</option>
+			<option value="GT">Guatemala</option>
+			<option value="GN">Guinea</option>
+			<option value="GW">Guinea-Bissau</option>
+			<option value="GY">Guyana</option>
+			<option value="HT">Haiti</option>
+			<option value="HM">Heard and Mc Donald Islands</option>
+			<option value="VA">Holy See (Vatican City State)</option>
+			<option value="HN">Honduras</option>
+			<option value="HK">Hong Kong</option>
+			<option value="HU">Hungary</option>
+			<option value="IS">Iceland</option>
+			<option value="IN">India</option>
+			<option value="ID">Indonesia</option>
+			<option value="IR">Iran (Islamic Republic of)</option>
+			<option value="IQ">Iraq</option>
+			<option value="IE">Ireland</option>
+			<option value="IL">Israel</option>
+			<option value="IT">Italy</option>
+			<option value="JM">Jamaica</option>
+			<option value="JP">Japan</option>
+			<option value="JO">Jordan</option>
+			<option value="KZ">Kazakhstan</option>
+			<option value="KE">Kenya</option>
+			<option value="KI">Kiribati</option>
+			<option value="KP">Korea, Democratic People's Republic of</option>
+			<option value="KR">Korea, Republic of</option>
+			<option value="KW">Kuwait</option>
+			<option value="KG">Kyrgyzstan</option>
+			<option value="LA">Lao People's Democratic Republic</option>
+			<option value="LV">Latvia</option>
+			<option value="LB">Lebanon</option>
+			<option value="LS">Lesotho</option>
+			<option value="LR">Liberia</option>
+			<option value="LY">Libyan Arab Jamahiriya</option>
+			<option value="LI">Liechtenstein</option>
+			<option value="LT">Lithuania</option>
+			<option value="LU">Luxembourg</option>
+			<option value="MO">Macau</option>
+			<option value="MK">Macedonia, The Former Yugoslav Republic of</option>
+			<option value="MG">Madagascar</option>
+			<option value="MW">Malawi</option>
+			<option value="MY">Malaysia</option>
+			<option value="MV">Maldives</option>
+			<option value="ML">Mali</option>
+			<option value="MT">Malta</option>
+			<option value="MH">Marshall Islands</option>
+			<option value="MQ">Martinique</option>
+			<option value="MR">Mauritania</option>
+			<option value="MU">Mauritius</option>
+			<option value="YT">Mayotte</option>
+			<option value="MX">Mexico</option>
+			<option value="FM">Micronesia, Federated States of</option>
+			<option value="MD">Moldova, Republic of</option>
+			<option value="MC">Monaco</option>
+			<option value="MN">Mongolia</option>
+			<option value="MS">Montserrat</option>
+			<option value="MA">Morocco</option>
+			<option value="MZ">Mozambique</option>
+			<option value="MM">Myanmar</option>
+			<option value="NA">Namibia</option>
+			<option value="NR">Nauru</option>
+			<option value="NP">Nepal</option>
+			<option value="NL">Netherlands</option>
+			<option value="AN">Netherlands Antilles</option>
+			<option value="NC">New Caledonia</option>
+			<option value="NZ">New Zealand</option>
+			<option value="NI">Nicaragua</option>
+			<option value="NE">Niger</option>
+			<option value="NG">Nigeria</option>
+			<option value="NU">Niue</option>
+			<option value="NF">Norfolk Island</option>
+			<option value="MP">Northern Mariana Islands</option>
+			<option value="NO">Norway</option>
+			<option value="OM">Oman</option>
+			<option value="PK">Pakistan</option>
+			<option value="PW">Palau</option>
+			<option value="PA">Panama</option>
+			<option value="PG">Papua New Guinea</option>
+			<option value="PY">Paraguay</option>
+			<option value="PE">Peru</option>
+			<option value="PH">Philippines</option>
+			<option value="PN">Pitcairn</option>
+			<option value="PL">Poland</option>
+			<option value="PT">Portugal</option>
+			<option value="PR">Puerto Rico</option>
+			<option value="QA">Qatar</option>
+			<option value="RE">Reunion</option>
+			<option value="RO">Romania</option>
+			<option value="RU">Russian Federation</option>
+			<option value="RW">Rwanda</option>
+			<option value="KN">Saint Kitts and Nevis</option>
+			<option value="LC">Saint LUCIA</option>
+			<option value="VC">Saint Vincent and the Grenadines</option>
+			<option value="WS">Samoa</option>
+			<option value="SM">San Marino</option>
+			<option value="ST">Sao Tome and Principe</option>
+			<option value="SA">Saudi Arabia</option>
+			<option value="SN">Senegal</option>
+			<option value="SC">Seychelles</option>
+			<option value="SL">Sierra Leone</option>
+			<option value="SG">Singapore</option>
+			<option value="SK">Slovakia (Slovak Republic)</option>
+			<option value="SI">Slovenia</option>
+			<option value="SB">Solomon Islands</option>
+			<option value="SO">Somalia</option>
+			<option value="ZA">South Africa</option>
+			<option value="GS">South Georgia and the South Sandwich Islands</option>
+			<option value="ES">Spain</option>
+			<option value="LK">Sri Lanka</option>
+			<option value="SH">St. Helena</option>
+			<option value="PM">St. Pierre and Miquelon</option>
+			<option value="SD">Sudan</option>
+			<option value="SR">Suriname</option>
+			<option value="SJ">Svalbard and Jan Mayen Islands</option>
+			<option value="SZ">Swaziland</option>
+			<option value="SE">Sweden</option>
+			<option value="CH">Switzerland</option>
+			<option value="SY">Syrian Arab Republic</option>
+			<option value="TW">Taiwan, Province of China</option>
+			<option value="TJ">Tajikistan</option>
+			<option value="TZ">Tanzania, United Republic of</option>
+			<option value="TH">Thailand</option>
+			<option value="TG">Togo</option>
+			<option value="TK">Tokelau</option>
+			<option value="TO">Tonga</option>
+			<option value="TT">Trinidad and Tobago</option>
+			<option value="TN">Tunisia</option>
+			<option value="TR">Turkey</option>
+			<option value="TM">Turkmenistan</option>
+			<option value="TC">Turks and Caicos Islands</option>
+			<option value="TV">Tuvalu</option>
+			<option value="UG">Uganda</option>
+			<option value="UA">Ukraine</option>
+			<option value="AE">United Arab Emirates</option>
+			<option value="GB">United Kingdom</option>
+			<option value="US">United States</option>
+			<option value="UM">United States Minor Outlying Islands</option>
+			<option value="UY">Uruguay</option>
+			<option value="UZ">Uzbekistan</option>
+			<option value="VU">Vanuatu</option>
+			<option value="VE">Venezuela</option>
+			<option value="VN">Viet Nam</option>
+			<option value="VG">Virgin Islands (British)</option>
+			<option value="VI">Virgin Islands (U.S.)</option>
+			<option value="WF">Wallis and Futuna Islands</option>
+			<option value="EH">Western Sahara</option>
+			<option value="YE">Yemen</option>
+			<option value="ZM">Zambia</option>
+			<option value="ZW">Zimbabwe</option>
+		</select>
+	</div>
+	<p>
+		 Ingresa la información de tu cuenta:
+	</p>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Usuario</label>
+		<div class="input-icon">
+			<i class="fa fa-user"></i>
+			<?php echo $this->Form->input('username', array('type'=>'text', 'placeholder'=>__('Usuario'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Contraseña</label>
+		<div class="input-icon">
+			<i class="fa fa-lock"></i>
+			<?php echo $this->Form->input('password', array('type'=>'password', 'placeholder'=>__('Contraseña'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="control-label visible-ie8 visible-ie9">Repite tu contraseña</label>
+		<div class="controls">
+			<div class="input-icon">
+				<i class="fa fa-check"></i>
+				<?php echo $this->Form->input('cpassword', array('type'=>'password', 'placeholder'=>__('Repite tu contraseña'), 'class'=>'form-control placeholder-no-fix', 'autocomplete' => 'off')); ?>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<label>
+		<input type="checkbox" name="tnc"/> He leído y estoy de acuerdo con los <a href="#">
+		Términos del Servicio </a>
+		y <a href="#">
+		Políticas de Privacidad </a>
+		</label>
+		<div id="register_tnc_error">
+		</div>
+	</div>
+	<div class="form-actions">
+		<button id="register-back-btn" type="button" class="btn">
+		<i class="m-icon-swapleft"></i> Regresar </button>
+		<button type="submit" id="registerSubmitBtn" class="btn blue pull-right">
+		Regístrarse <i class="m-icon-swapright m-icon-white"></i>
+		</button>
+	</div>
+</form>
+<!-- END REGISTRATION FORM -->
+<?php } ?>
+
+
+

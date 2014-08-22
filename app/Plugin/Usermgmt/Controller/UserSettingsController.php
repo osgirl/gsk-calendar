@@ -123,7 +123,7 @@ class UserSettingsController extends UserMgmtAppController {
 						$userSetting['UserSetting']['category'] = $this->request->data['UserSetting']['category'];
 						$this->UserSetting->save($userSetting,false);
 						$this->__deleteCache();
-						$this->Session->setFlash(__('Selected setting is successfully updated'));
+						$this->Session->setFlash(__('Selected setting is successfully updated'), 'flash_gritter', array(), 'success');
 						$this->redirect(array('action'=>'index', 'page'=>$page));
 					}
 				} else {
@@ -169,7 +169,7 @@ class UserSettingsController extends UserMgmtAppController {
 			$fp = fopen($fullpath.$filename, "w");
 			fwrite($fp, $this->request->data['UserSetting']['logfile']);
 			fclose($fp);
-			$this->Session->setFlash($filename.__(' has been modified successfully'));
+			$this->Session->setFlash($filename.__(' has been modified successfully'), 'flash_gritter', array(), 'success');
 			$this->redirect(array('action'=>'cakelog'));
 		}
 	}
@@ -187,12 +187,12 @@ class UserSettingsController extends UserMgmtAppController {
 					$pathinfo = pathinfo($filepath);
 					$newfile= $pathinfo['filename'].'_'.date('d-M-Y_H-i', time()).'.'.$pathinfo['extension'];
 					copy($filepath, LOGS.$newfile);
-					$this->Session->setFlash($filename.__(' has been copied to ').$newfile);
+					$this->Session->setFlash($filename.__(' has been copied to ').$newfile, 'flash_gritter', array(), 'success');
 				} else {
-					$this->Session->setFlash($filename.__(' file does not exist.'), 'default', array('class' => 'warning'));
+					$this->Session->setFlash($filename.__(' file does not exist.'), 'flash_gritter', array(), 'error');
 				}
 			} else {
-				$this->Session->setFlash(__('Missing Filename'), 'default', array('class' => 'warning'));
+				$this->Session->setFlash(__('Missing Filename'), 'flash_gritter', array(), 'error');
 			}
 		}
 		$this->redirect(array('action'=>'cakelog'));
@@ -209,15 +209,15 @@ class UserSettingsController extends UserMgmtAppController {
 				$filepath= LOGS.$filename;
 				if(file_exists($filepath)) {
 					if(unlink($filepath)) {
-						$this->Session->setFlash($filename.__(' has been deleted'));
+						$this->Session->setFlash($filename.__(' has been deleted'), 'flash_gritter', array(), 'success');
 					} else {
-						$this->Session->setFlash($filename.__(' file could not be deleted'), 'default', array('class' => 'warning'));
+						$this->Session->setFlash($filename.__(' file could not be deleted'), 'flash_gritter', array(), 'error');
 					}
 				} else {
-					$this->Session->setFlash($filename.__(' file does not exist.'), 'default', array('class' => 'warning'));
+					$this->Session->setFlash($filename.__(' file does not exist.'), 'flash_gritter', array(), 'error');
 				}
 			} else {
-				$this->Session->setFlash(__('Missing Filename'), 'default', array('class' => 'warning'));
+				$this->Session->setFlash(__('Missing Filename'), 'flash_gritter', array(), 'error');
 			}
 		}
 		$this->redirect(array('action'=>'cakelog'));
@@ -236,12 +236,12 @@ class UserSettingsController extends UserMgmtAppController {
 				if ($f !== false) {
 					ftruncate($f, 0);
 					fclose($f);
-					$this->Session->setFlash($filename.__(' has been done empty'));
+					$this->Session->setFlash($filename.__(' has been done empty'), 'flash_gritter', array(), 'success');
 				} else {
-					$this->Session->setFlash($filename.__(' file does not exist.'), 'default', array('class' => 'warning'));
+					$this->Session->setFlash($filename.__(' file does not exist.'), 'flash_gritter', array(), 'error');
 				}
 			} else {
-				$this->Session->setFlash(__('Missing Filename'), 'default', array('class' => 'warning'));
+				$this->Session->setFlash(__('Missing Filename'), 'flash_gritter', array(), 'error');
 			}
 		}
 		$this->redirect(array('action'=>'cakelog'));
