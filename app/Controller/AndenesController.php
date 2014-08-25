@@ -41,6 +41,8 @@ class AndenesController extends AppController {
 
 		debug($checkResult);
 
+		$this->GoogleCalendar->create();
+
 		$this->Andene->recursive = 0;
 		$this->set('andenes', $this->Paginator->paginate());
 	}
