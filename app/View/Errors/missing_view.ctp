@@ -14,18 +14,41 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 ?>
-<h2><?php echo __d('cake_dev', 'Missing View'); ?></h2>
-<p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', 'The view for %1$s%2$s was not found.', '<em>' . h(Inflector::camelize($this->request->controller)) . 'Controller::</em>', '<em>' . h($this->request->action) . '()</em>'); ?>
-</p>
-<p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', 'Confirm you have created the file: %s', h($file)); ?>
-</p>
-<p class="notice">
-	<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
-	<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_view.ctp'); ?>
-</p>
+<div class="page-content">
+	<!-- BEGIN PAGE HEADER-->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+			<h3 class="page-title">
+			<?php echo __d('cake_dev', 'Missing View'); ?>
+			</h3>
+			<ul class="page-breadcrumb breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<?= $this->Html->link(__('Inicio'), '/'); ?>
+				</li>
+			</ul>
+			<!-- END PAGE TITLE & BREADCRUMB-->
+		</div>
+	</div>
+	<!-- END PAGE HEADER-->
+	<!-- BEGIN PAGE CONTENT-->
+	<div class="row">
+		<div class="col-md-12 page-404">
+			<p class="error">
+				<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+				<?php echo __d('cake_dev', 'The view for %1$s%2$s was not found.', '<em>' . h(Inflector::camelize($this->request->controller)) . 'Controller::</em>', '<em>' . h($this->request->action) . '()</em>'); ?>
+			</p>
+			<p class="error">
+				<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+				<?php echo __d('cake_dev', 'Confirm you have created the file: %s', h($file)); ?>
+			</p>
+			<p class="notice">
+				<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
+				<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_view.ctp'); ?>
+			</p>
 
-<?php echo $this->element('exception_stack_trace'); ?>
+			<?php echo $this->element('exception_stack_trace'); ?>
+		</div>
+	</div>
+	<!-- END PAGE CONTENT-->

@@ -16,24 +16,48 @@
 
 $pluginDot = empty($plugin) ? null : $plugin . '.';
 ?>
-<h2><?php echo __d('cake_dev', 'Missing Component'); ?></h2>
-<p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', '%s could not be found.', '<em>' . h($pluginDot . $class) . '</em>'); ?>
-</p>
-<p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo __d('cake_dev', 'Create the class %s below in file: %s', '<em>' . h($class) . '</em>', (empty($plugin) ? APP_DIR . DS : CakePlugin::path($plugin)) . 'Controller' . DS . 'Component' . DS . h($class) . '.php'); ?>
-</p>
-<pre>
-&lt;?php
-class <?php echo h($class); ?> extends Component {
+<div class="page-content">
+	<!-- BEGIN PAGE HEADER-->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+			<h3 class="page-title">
+			<?php echo __d('cake_dev', 'Missing Component'); ?>
+			</h3>
+			<ul class="page-breadcrumb breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<?= $this->Html->link(__('Inicio'), '/'); ?>
+				</li>
+			</ul>
+			<!-- END PAGE TITLE & BREADCRUMB-->
+		</div>
+	</div>
+	<!-- END PAGE HEADER-->
+	<!-- BEGIN PAGE CONTENT-->
+	<div class="row">
+		<div class="col-md-12 page-404">
+			<p class="error">
+				<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+				<?php echo __d('cake_dev', '%s could not be found.', '<em>' . h($pluginDot . $class) . '</em>'); ?>
+			</p>
+			<p class="error">
+				<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+				<?php echo __d('cake_dev', 'Create the class %s below in file: %s', '<em>' . h($class) . '</em>', (empty($plugin) ? APP_DIR . DS : CakePlugin::path($plugin)) . 'Controller' . DS . 'Component' . DS . h($class) . '.php'); ?>
+			</p>
+			<pre>
+			&lt;?php
+			class <?php echo h($class); ?> extends Component {
 
-}
-</pre>
-<p class="notice">
-	<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
-	<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_component.ctp'); ?>
-</p>
+			}
+			</pre>
+			<p class="notice">
+				<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
+				<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'missing_component.ctp'); ?>
+			</p>
 
-<?php echo $this->element('exception_stack_trace'); ?>
+			<?php echo $this->element('exception_stack_trace'); ?>
+		</div>
+	</div>
+	<!-- END PAGE CONTENT-->
+

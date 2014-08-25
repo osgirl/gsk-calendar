@@ -14,23 +14,51 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 ?>
-<h2><?php echo __d('cake_dev', 'Database Error'); ?></h2>
-<p class="error">
-	<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
-	<?php echo $message; ?>
-</p>
-<?php if (!empty($error->queryString)) : ?>
-	<p class="notice">
-		<strong><?php echo __d('cake_dev', 'SQL Query'); ?>: </strong>
-		<?php echo h($error->queryString); ?>
-	</p>
-<?php endif; ?>
-<?php if (!empty($error->params)) : ?>
-		<strong><?php echo __d('cake_dev', 'SQL Query Params'); ?>: </strong>
-		<?php echo Debugger::dump($error->params); ?>
-<?php endif; ?>
-<p class="notice">
-	<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
-	<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'pdo_error.ctp'); ?>
-</p>
-<?php echo $this->element('exception_stack_trace'); ?>
+<div class="page-content">
+	<!-- BEGIN PAGE HEADER-->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- BEGIN PAGE TITLE & BREADCRUMB-->
+			<h3 class="page-title">
+			<?php echo __d('cake_dev', 'Database Error'); ?>
+			</h3>
+			<ul class="page-breadcrumb breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<?= $this->Html->link(__('Inicio'), '/'); ?>
+				</li>
+			</ul>
+			<!-- END PAGE TITLE & BREADCRUMB-->
+		</div>
+	</div>
+	<!-- END PAGE HEADER-->
+	<!-- BEGIN PAGE CONTENT-->
+	<div class="row">
+		<div class="col-md-12 page-404">
+
+			<p class="error">
+				<strong><?php echo __d('cake_dev', 'Error'); ?>: </strong>
+				<?php echo $message; ?>
+			</p>
+			<?php if (!empty($error->queryString)) : ?>
+				<p class="notice">
+					<strong><?php echo __d('cake_dev', 'SQL Query'); ?>: </strong>
+					<?php echo h($error->queryString); ?>
+				</p>
+			<?php endif; ?>
+			<?php if (!empty($error->params)) : ?>
+					<strong><?php echo __d('cake_dev', 'SQL Query Params'); ?>: </strong>
+					<?php echo Debugger::dump($error->params); ?>
+			<?php endif; ?>
+			<p class="notice">
+				<strong><?php echo __d('cake_dev', 'Notice'); ?>: </strong>
+				<?php echo __d('cake_dev', 'If you want to customize this error message, create %s', APP_DIR . DS . 'View' . DS . 'Errors' . DS . 'pdo_error.ctp'); ?>
+			</p>
+			<?php echo $this->element('exception_stack_trace'); ?>
+			
+		</div>
+	</div>
+	<!-- END PAGE CONTENT-->
+
+<h2></h2>
+

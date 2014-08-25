@@ -21,6 +21,13 @@
 
 App::uses('Controller', 'Controller');
 
+App::import('Vendor', 'GoogleAuthenticator', array('file' => 'GoogleAuthenticator.php'));
+
+App::import('Vendor', 'GoogleClient', array('file' => 'Google'.DS.'Client.php'));
+App::import('Vendor', 'GoogleAppIdentity', array('file' => 'Google'.DS.'Auth'.DS.'AppIdentity.php'));
+App::import('Vendor', 'GoogleStorage', array('file' => 'Google'.DS.'Service'.DS.'Storage.php'));
+App::import('Vendor', 'GoogleCalendar', array('file' => 'Google'.DS.'Service'.DS.'Calendar.php'));
+
 /**
  * Application Controller
  *
